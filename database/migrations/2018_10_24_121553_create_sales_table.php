@@ -15,12 +15,11 @@ class CreateSalesTable extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('medicinename');
+            $table->integer('addmedicine_id')->unsigned();
+            $table->integer('customer_id')->unsigned();
             $table->string('qty');
             $table->decimal('price');
-            $table->integer('customer_id')->unsigned();
-            $table->longText('customer_comment');
-            $table->integer('addmedicine_id')->unsigned();
+            $table->longText('customer_comment')->nullable();
             $table->foreign('customer_id')
                 ->references('id')
                 ->on('customers')

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Sale;
 use App\AddMedicine;
 use App\Customer;
+use Session;
 
 class SaleController extends Controller
 {
@@ -35,7 +36,15 @@ class SaleController extends Controller
     }
 
     public function store(Request $request){
-
+         $stock = AddMedicine::find($request->addmedicine_id);
+         if(!empty($stock)){
+            $deductedstockqty = $stock->qty - $request->qty;
+         }
+         if($deductedstockqty < 0){
+            Session::flash('status','Stock Quantity Out of stock'); 
+            return redirect()->back();
+         }
+         AddMedicine::where('id', $stock->id)->update(['qty' => $deductedstockqty]);
          if(Sale::create($request->all())){
             return redirect()->route('sale.index')->with('success', 'Sale stored Successfully');
          }

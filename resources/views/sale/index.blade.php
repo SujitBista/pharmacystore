@@ -18,6 +18,14 @@
               </ul>
           </div>
         @endif
+        @if(Session::has('status'))
+          <div class="alert alert-danger alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            {{ Session::get('status') }}
+           </div>
+        @endif
          @if(Session::has('success'))
             <div class="alert alert-success alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert">
@@ -56,10 +64,10 @@
                   </select>
                   <label for="qty">Qty</label>
                   <input type="text" class="form-control" name="qty" id="qty" value="{{ !empty($sale) ? $sale->qty : old('qty') }}" placeholder="Enter Quantity">
-                  <label for="price">Price</label>
+                  <label for="price">Unit Price</label>
                   <input type="text" class="form-control" name="price" id="price" value="{{ !empty($sale) ? $sale->price : old('price') }}" placeholder="Enter price">
-                  <label for="comment">Comment</label>
-                  <input type="textarea" class="form-control" name="comment" id="comment" value="{{ !empty($medicine) ? $medicine->comment : old('comment') }}" placeholder="Enter Comment">
+                  <label for="customer_comment">Comment</label>
+                  <textarea rows="5" class="form-control" name="customer_comment" id="customer_comment" value="{{ !empty($medicine) ? $medicine->customer_comment : old('customer_comment') }}" placeholder="Enter comment"></textarea>
       
                 </div>
                @if(!empty($medicine))
@@ -82,19 +90,21 @@
                      <th>Email</th>
                      <th>Phone</th>
                      <th>Address1</th>
-                     <th>Address2</th>              
+                     <th>Address2</th>
+                     <th>Sold Qty</th>
+                     <th>Price</th>              
                     </tr>
                   </thead>
                   <tbody>
                     @foreach($sales as $sale)
                        <tr>
-                         <td>{{ $sale->name }}</td>
-                         <td>{{ $sale->email }}</td>
-                         <td>{{ $sale->phone }}</td>
-                         <td>{{ $sale->address1 }}</td>
-                         <td>{{ $sale->address2 }}</td>
-                         {{ $sale->id}}
-                         
+                         <td>{{ $sale->addmedicine->name }}</td>
+                         <td>{{ $sale->customer->email }}</td>
+                         <td>{{ $sale->customer->phone }}</td>
+                         <td>{{ $sale->customer->address1 }}</td>
+                         <td>{{ $sale->customer->address2 }}</td>
+                         <td>{{ $sale->qty }}</td>
+                        <td>{{ $sale->price }}</td>
                          <td> <a href="{{ route('sale.edit', $sale->id) }}">Edit</a> |
                            <form id="delete_form{{$sale->id}}" method="POST" action="{{ route('sale.destroy', $sale->id) }}">
                              {{ csrf_field() }}
@@ -102,6 +112,7 @@
                              <a onclick="document.getElementById('delete_form{{$sale->id}}').submit();preventDefault();" href="#">Delete</a> 
                            </form>
                           </td>
+
                        
                        </tr>
                     @endforeach
