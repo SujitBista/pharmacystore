@@ -11,22 +11,19 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-// Route::get('addmedicine', function(){
-// 	return view('addmedicine');
-// })->name('addmedicine');
 Route::resource('addmedicine','AddMedicineController');
-
-Route::get('addsales', function(){
-	return view('addmedicine');
-})->name('addsales');
+Route::resource('customer','CustomerController');
 
 Route::resource('distributor','DistributorController');
-//Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('sale','SaleController');
+
+Route::post('updatemedicine','AddMedicineController@updatequantity')->name('addmedicine.updatequantity');
 
 Route::get('/pdf', function(){
 	return view('pdf');
-});
+})->middleware('auth');

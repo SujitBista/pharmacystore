@@ -8,6 +8,7 @@ use App\Http\Requests\DistributorRequest;
 class DistributorController extends Controller
 {
      /**
+     * distributor is a party
      * Create a new controller instance.
      *
      * @return void

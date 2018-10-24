@@ -21,4 +21,9 @@ class AddMedicine extends Model
     			'batchnumber',
     			'mrp'
     ];
+
+     public function distributor()
+    {
+        return $this->belongsTo('App\Distributor');
+    }
 }
