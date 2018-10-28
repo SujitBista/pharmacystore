@@ -48,11 +48,11 @@
                   <label for="phone">Phone</label>
                   <input type="text" class="form-control" name="phone" id="phone" value="{{ !empty($customer) ? $customer->phone : old('phone') }}" placeholder="Enter phone">
                   <label for="address1">Address1</label>
-                  <input type="text" class="form-control" name="address1" id="address1" value="{{ !empty($medicine) ? $medicine->address1 : old('address1') }}" placeholder="Enter address1">
+                  <input type="text" class="form-control" name="address1" id="address1" value="{{ !empty($customer) ? $customer->address1 : old('address1') }}" placeholder="Enter address1">
                   <label for="address2">Address2</label>
-                  <input type="text" class="form-control" name="address2" id="address2" value="{{ !empty($medicine) ? $medicine->address2 : old('address2') }}" placeholder="Enter address2">
+                  <input type="text" class="form-control" name="address2" id="address2" value="{{ !empty($customer) ? $customer->address2 : old('address2') }}" placeholder="Enter address2">
                 </div>
-               @if(!empty($medicine))
+               @if(!empty($customer))
                <button type="submit" class="btn btn-primary">Update</button>
                @else
                 <button type="submit" class="btn btn-primary">Submit</button>

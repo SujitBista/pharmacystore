@@ -26,7 +26,15 @@ class AddMedicineRequest extends FormRequest
         return [
             'code' => 'required',
             'distributor_id' => 'required|not_in:0',
+            'type' => 'required',
+            'pack' => 'required',
             'name' => 'required',
+            'itemdescription' => 'required',
+            'qty' => 'required',
+            'rate' => 'required',
+            'expdate'=> 'required',
+            'batchnumber' => 'required',
+            'mrp' => 'required',
 
         ];
     }

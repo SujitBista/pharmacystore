@@ -39,10 +39,10 @@
           Add Sales
         </h1>
         
-          @if(empty($sale))
+          @if(empty($curSale))
               <form method="post" action="{{ route('sale.store') }}">
           @else
-              <form method="post" action=" {{ route('sale.update', $sale->id) }}">
+              <form method="post" action=" {{ route('sale.update', $curSale->id) }}">
                   <input type="hidden" name="_method" value="PUT">         
           @endif
                  {{ csrf_field() }}
@@ -50,24 +50,24 @@
                 <div class="form-group">
                   <label for="addmedicine_id">Medicine Name</label>
                   <select class="form-control" name="addmedicine_id" id="addmedicine_id">
-                     <option value="0">--Select--</option>
+                     <option value="">--Select--</option>
                      @foreach($addmedicines as $addmedicine)
                         <option id="{{ $addmedicine->id }}" name="{{ $addmedicine->name }}" value="{{ $addmedicine->id }}">{{ $addmedicine->name }}</option>
                      @endforeach
                   </select>
                   <label for="customer_id">Customer Name</label>
                   <select class="form-control" name="customer_id" id="customer_id">
-                     <option value="0">--Select--</option>
+                     <option value="">--Select--</option>
                      @foreach($customers as $customer)
                         <option id="{{ $customer->id }}" name="{{ $customer->name }}" value="{{ $customer->id }}">{{ $customer->name }}</option>
                      @endforeach
                   </select>
                   <label for="qty">Qty</label>
-                  <input type="text" class="form-control" name="qty" id="qty" value="{{ !empty($sale) ? $sale->qty : old('qty') }}" placeholder="Enter Quantity">
+                  <input type="text" class="form-control" name="qty" id="qty" value="{{ !empty($curSale) ? $curSale->qty : old('qty') }}" placeholder="Enter Quantity">
                   <label for="price">Unit Price</label>
-                  <input type="text" class="form-control" name="price" id="price" value="{{ !empty($sale) ? $sale->price : old('price') }}" placeholder="Enter price">
+                  <input type="text" class="form-control" name="price" id="price" value="{{ !empty($curSale) ? $curSale->price : old('price') }}" placeholder="Enter price">
                   <label for="customer_comment">Comment</label>
-                  <textarea rows="5" class="form-control" name="customer_comment" id="customer_comment" value="{{ !empty($medicine) ? $medicine->customer_comment : old('customer_comment') }}" placeholder="Enter comment"></textarea>
+                  <textarea rows="5" class="form-control" name="customer_comment" id="customer_comment" placeholder="Enter comment">{{ !empty($curSale) ? $curSale->customer_comment : old('customer_comment') }}</textarea>
       
                 </div>
                @if(!empty($medicine))

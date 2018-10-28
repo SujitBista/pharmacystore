@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\AddMedicineRequest;
+use App\Http\Requests\AddQuantityRequest;
 use Illuminate\Http\Request;
 use App\AddMedicine;
 use App\Distributor;
@@ -64,7 +65,7 @@ class AddMedicineController extends Controller
         return redirect()->back();
     }
 
-    public function updatequantity(Request $request){
+    public function updatequantity(AddQuantityRequest $request){
         $id = $request->stock_id;
         $qty = $request->qty;
         $stockquantity = AddMedicine::find($id);

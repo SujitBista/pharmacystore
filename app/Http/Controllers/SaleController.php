@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\SaleRequest;
 use App\Sale;
 use App\AddMedicine;
 use App\Customer;
@@ -35,7 +36,7 @@ class SaleController extends Controller
 
     }
 
-    public function store(Request $request){
+    public function store(SaleRequest $request){
          $stock = AddMedicine::find($request->addmedicine_id);
          if(!empty($stock)){
             $deductedstockqty = $stock->qty - $request->qty;
@@ -53,7 +54,6 @@ class SaleController extends Controller
     }
 
     public function update($id, SaleRequest $request){
-             
         if(Sale::where('id', $id)->update($request->except(['_token','_method'])))
         {
             return redirect()->route('sale.index')->with('success', 'Updated Successfully');
@@ -65,9 +65,11 @@ class SaleController extends Controller
     }
 
     public function edit($Sale){
-         $data = Sale::all();
+         $addmedicines = AddMedicine::all();
+         $customers = Customer::all();
+         $sales = Sale::paginate(3);
          $curSale = Sale::find($Sale);
-         return view('sale',compact('data','curSale'));
+         return view('sale.index',compact('sales','curSale','addmedicines','customers'));
     }
 
     public function destroy($idd){

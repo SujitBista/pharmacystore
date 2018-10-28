@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Customer;
+use App\Http\Requests\CustomerRequest;
 class CustomerController extends Controller
 {
     /**
@@ -27,7 +28,7 @@ class CustomerController extends Controller
         return view('customer.index', compact('customers'));
     }
 
-    public function store(Request $request){
+    public function store(CustomerRequest $request){
 
          if(Customer::create($request->all())){
             return redirect()->route('customer.index')->with('success', 'Customer created Successfully');
@@ -36,7 +37,7 @@ class CustomerController extends Controller
          return redirect()->back()->with('error','Customer could not be created');	
     }
 
-    public function update($id, Request $request){
+    public function update($id, CustomerRequest $request){
 
         if(Customer::where('id', $id)->update($request->except(['_method','_token']))){
             return redirect()->route('customer.index')->with('success', 'Updated Successfully');

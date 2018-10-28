@@ -102,7 +102,7 @@
                  <div class="form-group">
                   <label for="code">Medicine Name</label>
                   <select class="form-control" name="stock_id" id="stock_id">
-                     <option value="0">--Select--</option>
+                     <option value="">--Select--</option>
                      @foreach($stocks as $stock)
                         <option id="{{ $stock->id }}" name="{{ $stock->name }}" value="{{ $stock->id }}">{{ $stock->name }}</option>
                      @endforeach
