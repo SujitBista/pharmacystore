@@ -21,7 +21,7 @@ Route::resource('customer','CustomerController');
 Route::resource('distributor','DistributorController');
 
 Route::resource('sale','SaleController');
-
+Route::get('/sales','SaleController@getMedicineSalePrice');
 Route::post('updatemedicine','AddMedicineController@updatequantity')->name('addmedicine.updatequantity');
 
 Route::get('/pdf', function(){

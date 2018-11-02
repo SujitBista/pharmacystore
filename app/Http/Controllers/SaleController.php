@@ -80,4 +80,12 @@ class SaleController extends Controller
 
         return redirect()->back();
     }
+
+    public function getMedicineSalePrice(Request $request){
+          if($request->ajax()){
+            $id = $request->get('id');
+            $selectedmedicine = AddMedicine::findorfail($id);
+            return response()->json(['response'=> 'success', 'medrate'=> $selectedmedicine['rate']]);
+          }
+    }
 }
