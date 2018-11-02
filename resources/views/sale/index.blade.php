@@ -65,7 +65,12 @@
                   <label for="qty">Qty</label>
                   <input type="text" class="form-control" name="qty" id="qty" value="{{ !empty($curSale) ? $curSale->qty : old('qty') }}" placeholder="Enter Quantity">
                   <label for="price">Unit Price</label>
-                  <input disabled type="text" class="form-control" name="price" id="price" value="{{ !empty($curSale) ? $curSale->price : old('price') }}">
+                  @if(empty($curSale))
+                  <input type="text" class="form-control" name="price" id="price" value="{{ !empty($curSale) ? $curSale->price : old('price') }}" readonly>
+                  @else
+                  <input type="text" class="form-control" name="price" id="price" value="{{ !empty($curSale) ? $curSale->price : old('price') }}">
+                  @endif
+
                   <label for="customer_comment">Comment</label>
                   <textarea rows="5" class="form-control" name="customer_comment" id="customer_comment" placeholder="Enter comment">{{ !empty($curSale) ? $curSale->customer_comment : old('customer_comment') }}</textarea>
       
@@ -136,7 +141,6 @@
                 //var index = $('option:selected',this).attr("value");
                 if(!index){
                     $('#price').val('');
-                  //alert('empty');
                 }
                $.ajax({
                    type:"GET",
@@ -144,12 +148,10 @@
                    data: {id:index},
                    dataType: "json",
                    success: function(response){
-                      $('#price').val(response.medrate).prop('disabled', true);
+                      $('#price').val(response.medrate).attr('readonly');
                    }
                });
             });
        });
    </script>
 @endsection
-
-
